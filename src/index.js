@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import { store } from "./store/index";
+import { Provider } from "react-redux";
 import './index.css';
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
@@ -43,6 +45,8 @@ function Index() {
 }
 
 ReactDOM.render(
-    <Index />,
+    <Provider store={store}>
+      <Index />
+    </Provider>,
   document.getElementById('root')
 );
