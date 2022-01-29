@@ -1,11 +1,13 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { store } from "./store/index";
+import App from './components/App';
+import { CoinDecription } from "./components/CoinDescription";
 import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import './index.css';
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
-import App from './App';
 
 function Index() {
   useEffect(() => {
@@ -26,12 +28,9 @@ function Index() {
         </div>
       </nav>
       <ul className="sidenav" id="mobile-demo">
-        <li><a href="#">GitHub repo</a></li>
+        <li><a href="https://github.com/metkram/top-100-coins">GitHub repo</a></li>
       </ul>
-      <div className="container">
-        <h1>Top 100 crypto coins</h1>
-      </div>
-      <App />
+      <Outlet />
       <footer className="page-footer green lighten-3">
         <div className="footer-copyright">
           <div className="container">
@@ -46,7 +45,14 @@ function Index() {
 
 ReactDOM.render(
     <Provider store={store}>
-      <Index />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />}>
+            <Route index element={<App />} />
+            <Route path=":coinName" element={<CoinDecription />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>,
   document.getElementById('root')
 );
